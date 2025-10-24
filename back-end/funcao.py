@@ -84,5 +84,3 @@ def deletar_filme(id_filme):
         finally:
             cursor.close()
             conexao.close()
-id_filme = input("Digite o ID do filme que deseja deletar: ")
-deletar_filme(id_filme)
