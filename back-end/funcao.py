@@ -66,7 +66,23 @@ def atualizar_filmes(id_filme, nova_nota):
             cursor.close()
             conexao.close()
             
-id_filme = input("Digite o id do filme que deseja alterar a nota: ")
-nova_nota = input("Digite a nova nota para o filme escolhido: ")
-
-atualizar_filmes(id_filme, nova_nota)
+def deletar_filme(id_filme):
+    conexao, cursor = conector()
+    if conexao:
+        try:
+            cursor.execute(
+                "DELETE FROM filmes WHERE id = %s",
+                (id_filme,)
+            )
+            conexao.commit()
+            if cursor.rowcount > 0:
+                print("Filme removido com sucesso!")
+            else:
+                print("Nenhum filme foi encontrado com o ID fornecido.")
+        except Exception as erro:
+            print(f"Erro ao tentar deletar o filme {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
+id_filme = input("Digite o ID do filme que deseja deletar: ")
+deletar_filme(id_filme)
