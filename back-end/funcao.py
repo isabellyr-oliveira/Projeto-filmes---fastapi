@@ -49,5 +49,24 @@ def listar_filmes():
         finally:
             cursor.close()
             conexao.close()
-listar_filmes()
 
+
+def atualizar_filmes(id_filme, nova_nota):
+    conexao, cursor = conector()
+    if conexao:
+        try:
+            cursor.execute(
+                "UPDATE filmes SET nota = %s WHERE id = %s",
+                (nova_nota, id_filme)
+            )
+            conexao.commit()
+        except Exception as erro:
+            print(f"Erro ao atualizar o filme: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
+            
+id_filme = input("Digite o id do filme que deseja alterar a nota: ")
+nova_nota = input("Digite a nova nota para o filme escolhido: ")
+
+atualizar_filmes(id_filme, nova_nota)
